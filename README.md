@@ -70,20 +70,21 @@ Desktop, no WSL, and no local ROS installation required.**
 2. **Wait for setup to finish.** On first launch the container builds, ROS 2
    `ros2_ws` is compiled with colcon, and `web_gui` npm dependencies are
    installed automatically (via `.devcontainer/post-create.sh`).
-3. Open the **Command Palette → Tasks: Run Task** and choose **Run ROS**.
-   This builds the workspace, starts rosbridge (port 9090), and runs the
-   `button_listener` node.
-4. Run the **Run React** task (or just run **Run ROS + React** to do both at
-   once). This starts the Vite dev server on port 5173 and, because it detects
-   Codespaces, automatically points the GUI at the forwarded rosbridge URL.
-5. Open the **forwarded port 5173** (the **Ports** tab, or the "Open in
-   Browser" toast) to use the GUI. Click **Send Message to ROS** and watch the
-   node logs in the **Run ROS** terminal.
+3. **That's it — nothing else to start.** On every container start,
+   `.devcontainer/start-ros.sh` automatically launches rosbridge (port 9090)
+   and the `button_listener` node in the background, and the `web` container
+   already serves the Vite dev server on port 5173.
+4. Open the **forwarded port 5173** (the **Ports** tab, or the "Open in
+   Browser" toast) to use the GUI. Click **Send Message to ROS**; the status
+   badge should already read **Connected to ROS 2**.
+5. To watch the node react to your clicks, either tail the background log
+   (`tail -f /tmp/ros-logs/button_listener.log`) or run the **Run ROS** task to
+   see the listener live in a terminal.
 
-> **Tip:** If the GUI shows "Disconnected", make sure the **Run ROS** task is
-> actually running (it starts rosbridge on port 9090) and that the **Run React**
-> task is running too. The GUI reaches rosbridge through a `/rosbridge` proxy on
-> the same 5173 origin, so you do **not** need to change any port visibility.
+> **Tip:** If the GUI shows "Disconnected", the background rosbridge may not be
+> up yet — give it a few seconds and refresh, or run the **Run ROS** task
+> manually. The GUI reaches rosbridge through a `/rosbridge` proxy on the same
+> 5173 origin, so you do **not** need to change any port visibility.
 
 The local Docker workflow above is unchanged — Codespaces support is purely
 additive (`.devcontainer/`, `.vscode/tasks.json`, and `scripts/`).

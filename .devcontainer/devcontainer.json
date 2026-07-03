@@ -60,5 +60,10 @@
 
   // On first create: source ROS, build ros2_ws with colcon, and install the
   // web_gui npm dependencies. Delegated to a script so it is easy to rerun.
-  "postCreateCommand": "bash .devcontainer/post-create.sh"
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  // On every container start: launch rosbridge (port 9090) and the
+  // button_listener in the background so the React GUI connects automatically
+  // with no manual "Run ROS" step. Idempotent and non-blocking.
+  "postStartCommand": "bash .devcontainer/start-ros.sh"
 }

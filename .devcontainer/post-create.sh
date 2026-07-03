@@ -18,7 +18,7 @@ set -e
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 echo "==> [post-create] Ensuring helper scripts are executable"
-chmod +x "${REPO_ROOT}/scripts/run_ros.sh" "${REPO_ROOT}/scripts/run_web.sh" "${REPO_ROOT}/.devcontainer/post-create.sh" 2>/dev/null || true
+chmod +x "${REPO_ROOT}/scripts/run_ros.sh" "${REPO_ROOT}/scripts/run_web.sh" "${REPO_ROOT}/.devcontainer/post-create.sh" "${REPO_ROOT}/.devcontainer/start-ros.sh" 2>/dev/null || true
 
 echo "==> [post-create] Sourcing ROS 2 Humble"
 source /opt/ros/humble/setup.bash
